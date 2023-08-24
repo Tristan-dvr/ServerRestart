@@ -64,10 +64,11 @@
     <Compile Include="DiscordTool.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Log.cs" />
-    <Compile Include="MaintanaceService.cs" />
+    <Compile Include="MaintenanceService.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestartMessages.cs" />
+    <Compile Include="RestartScheduleLogService.cs" />
     <Compile Include="RestartService.cs" />
     <Compile Include="ThreadinUtil.cs" />
   </ItemGroup>

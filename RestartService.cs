@@ -14,24 +14,9 @@ namespace ServerRestart
 
         public bool RestartStarted { get; private set; }
 
-        private void Awake()
-        {
-            InvokeRepeating(nameof(PrintScheduledRestartTime), 60, 60);
-        }
-
         private void Start()
         {
             ScheduleNextRestart();
-        }
-
-        private void PrintScheduledRestartTime()
-        {
-            var currentTime = DateTime.UtcNow;
-            var timeLeft = NextRestartDate - currentTime;
-            if (NextRestartDate != default)
-                Log.Message($"Next restart {NextRestartDate}. Time left: {timeLeft}");
-            else
-                Log.Message("No scheduled restarts");
         }
 
         public void ScheduleNextRestart()
@@ -43,12 +28,10 @@ namespace ServerRestart
             if (schedule.Length == 0)
             {
                 NextRestartDate = default;
-                Log.Message("Restart schedule is empty");
                 OnScheduledRestartChanged?.Invoke(NextRestartDate);
                 return;
             }
             NextRestartDate = GetNextRestartDate(schedule);
-            Log.Message($"Next restart scheduled at {NextRestartDate}. Time left {NextRestartDate - DateTime.UtcNow}");
             
             if (Plugin.ShutDownServer.Value) StartCoroutine(ScheduleRestart(NextRestartDate));
 

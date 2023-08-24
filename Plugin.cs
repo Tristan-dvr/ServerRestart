@@ -14,7 +14,7 @@ namespace ServerRestart
     {
         public const string Guid = "org.tristan.serverrestart";
         public const string Name = "Server Restart";
-        public const string Version = "1.1.0";
+        public const string Version = "1.1.1";
 
         public static ConfigEntry<string> RestartTimes;
         public static ConfigEntry<string> Message1Hour;
@@ -32,6 +32,9 @@ namespace ServerRestart
         public static ConfigEntry<bool> ShutDownServer;
         public static ConfigEntry<bool> EnableMaintenance;
         public static ConfigEntry<int> MaintenanceMinutes;
+
+        public static ConfigEntry<bool> PrintLogs;
+        public static ConfigEntry<int> PrintLogsPeriod;
 
         private static RestartService _service;
 
@@ -52,10 +55,13 @@ namespace ServerRestart
             Message1Min = Config.Bind("2. Messages", "1 minute", "Server restart in 1 minute");
 
             EnableMaintenance = Config.Bind("3. ServerCharacters", "Maintenance mode", false, "Should enable maintenance mode for ServerCharacters");
-            MaintenanceMinutes = Config.Bind("3. ServerCharacters", "Maintenance time", 7, "Enable maintance before scheduled server restart time");
+            MaintenanceMinutes = Config.Bind("3. ServerCharacters", "Maintenance time", 7, "Enable maintenance before scheduled server restart time");
 
             DiscordUrl = Config.Bind("4. Discord", "Webhook", "");
             DiscordName = Config.Bind("4. Discord", "Display name", "Restart");
+
+            PrintLogs = Config.Bind("5. Logs", "Print logs", false);
+            PrintLogsPeriod = Config.Bind("5. Logs", "Period", 600, "Period for displaying date of next restart and remaining time");
 
             Helper.WatchConfigFileChanges(Config, OnConfigChanged);
 
@@ -66,8 +72,8 @@ namespace ServerRestart
         {
             Log.Message("Config reloaded");
             Config.Reload();
-            if (_service != null)
-                _service.ScheduleNextRestart();
+            
+            _service?.ScheduleNextRestart();
         }
 
         [HarmonyPatch]
@@ -77,9 +83,10 @@ namespace ServerRestart
             private static void Game_Start(Game __instance)
             {
                 _service = __instance.gameObject.AddComponent<RestartService>();
-
-                __instance.gameObject.AddComponent<MaintanaceService>();
+                
+                __instance.gameObject.AddComponent<MaintenanceService>();
                 __instance.gameObject.AddComponent<RestartMessages>();
+                __instance.gameObject.AddComponent<RestartScheduleLogService>();
             }
 
             [HarmonyPrefix, HarmonyPatch(typeof(ZNet), nameof(ZNet.CheckForIncommingServerConnections))]

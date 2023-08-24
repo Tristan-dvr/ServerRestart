@@ -18,3 +18,11 @@ _madbomg_
 #### Find me on Discord if you got feature request / bug report / found incompatibility with another mod
 typedeff
 https://discord.gg/MjQZKuB4z2
+
+
+### Changelog
+1.1.1
+- Fixed compatiblity with new game version
+- Fixed redundant logs
+1.1.0
+Initial release

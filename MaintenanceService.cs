@@ -7,61 +7,61 @@ using UnityEngine;
 
 namespace ServerRestart
 {
-    class MaintanaceService : MonoBehaviour
+    class MaintenanceService : MonoBehaviour
     {
-        private string _maintanaceFilePath;
+        private string _maintenanceFilePath;
 
         private void Awake()
         {
             var serverCharacters = Chainloader.PluginInfos.Values
                 .FirstOrDefault(p => p.Metadata.GUID == "org.bepinex.plugins.servercharacters");
 
-            if (serverCharacters == null)
-            {
-                Log.Error("Cannot enable maintanace mod. ServerCharacters mod not found!");
-                enabled = false;
-                return;
-            }
+            if (serverCharacters == null) return;
 
             var serverCharactersFolder = Path.GetDirectoryName(serverCharacters.Location);
             Log.Debug($"ServerCharacters mod found at {serverCharactersFolder}");
-            _maintanaceFilePath = Path.Combine(serverCharactersFolder, "maintenance");
-            RemoveMaintanace();
+            _maintenanceFilePath = Path.Combine(serverCharactersFolder, "maintenance");
         }
 
         private void OnEnable()
         {
-            RestartService.OnScheduledRestartChanged += ScheduleMaintanace;
+            RestartService.OnScheduledRestartChanged += OnRestartDateChanged;
         }
 
         private void OnDisable()
         {
-            RestartService.OnScheduledRestartChanged -= ScheduleMaintanace;
+            RestartService.OnScheduledRestartChanged -= OnRestartDateChanged;
         }
 
-        private void ScheduleMaintanace(DateTime date)
+        private void OnRestartDateChanged(DateTime date)
         {
             if (!Plugin.EnableMaintenance.Value) return;
 
+            if (string.IsNullOrEmpty(_maintenanceFilePath))
+            {
+                Log.Error("Cannot enable maintenance. ServerCharacters mod not found!");
+                return;
+            }
+
             StopAllCoroutines();
-            RemoveMaintanace();
+            RemoveMaintenance();
             if (date == default) return;
 
             StartCoroutine(ScheduleMaintenance(date.Subtract(TimeSpan.FromMinutes(Plugin.MaintenanceMinutes.Value))));
         }
 
-        private void RemoveMaintanace()
+        private void RemoveMaintenance()
         {
-            if (!File.Exists(_maintanaceFilePath)) return;
+            if (!File.Exists(_maintenanceFilePath)) return;
 
-            File.Delete(_maintanaceFilePath);
+            File.Delete(_maintenanceFilePath);
             Log.Info("Maintenance disabled");
         }
 
         private IEnumerator ScheduleMaintenance(DateTime date)
         {
             yield return new WaitUntil(() => DateTime.UtcNow >= date);
-            using (File.Create(_maintanaceFilePath)) { }
+            using (File.Create(_maintenanceFilePath)) { }
             Log.Info("Maintenance started");
         }
     }
