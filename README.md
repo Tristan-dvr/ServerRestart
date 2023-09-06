@@ -21,8 +21,11 @@ https://discord.gg/MjQZKuB4z2
 
 
 ### Changelog
+1.1.2
+- Added chat messages
+- Configurable messages format, separated configuration for each target (discord, center screen anounce, chat)
 1.1.1
 - Fixed compatiblity with new game version
 - Fixed redundant logs
 1.1.0
-Initial release
+- Initial release

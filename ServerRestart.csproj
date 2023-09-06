@@ -70,7 +70,7 @@
     <Compile Include="RestartMessages.cs" />
     <Compile Include="RestartScheduleLogService.cs" />
     <Compile Include="RestartService.cs" />
-    <Compile Include="ThreadinUtil.cs" />
+    <Compile Include="ThreadingUtil.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

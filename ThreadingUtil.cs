@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 using System.Threading;
 using UnityEngine;
 
-internal static class ThreadinUtil
+internal static class ThreadingUtil
 {
     internal static IDisposable RunPeriodical(Action action, int periodMilliseconds)
     {

@@ -14,7 +14,7 @@ namespace ServerRestart
     {
         public const string Guid = "org.tristan.serverrestart";
         public const string Name = "Server Restart";
-        public const string Version = "1.1.1";
+        public const string Version = "1.1.2";
 
         public static ConfigEntry<string> RestartTimes;
         public static ConfigEntry<string> Message1Hour;
@@ -25,9 +25,15 @@ namespace ServerRestart
         public static ConfigEntry<string> Message3Min;
         public static ConfigEntry<string> Message2Min;
         public static ConfigEntry<string> Message1Min;
+        public static ConfigEntry<string> AnounceFormat;
+
+        public static ConfigEntry<string> ChatName;
+        public static ConfigEntry<bool> SendMessagesToChat;
+        public static ConfigEntry<string> ChatFormat;
 
         public static ConfigEntry<string> DiscordUrl;
         public static ConfigEntry<string> DiscordName;
+        public static ConfigEntry<string> DiscordFormat;
 
         public static ConfigEntry<bool> ShutDownServer;
         public static ConfigEntry<bool> EnableMaintenance;
@@ -53,12 +59,18 @@ namespace ServerRestart
             Message3Min = Config.Bind("2. Messages", "3 minutes", "Server restart in 3 minutes");
             Message2Min = Config.Bind("2. Messages", "2 minutes", "Server restart in 2 minutes");
             Message1Min = Config.Bind("2. Messages", "1 minute", "Server restart in 1 minute");
+            AnounceFormat = Config.Bind("2. Messages", "Anounce format", "{0}", "Format of center screen message");
+
+            ChatName = Config.Bind("2. Messages", "Chat name", "Restart");
+            SendMessagesToChat = Config.Bind("2. Messages", "Send to chat", true);
+            ChatFormat = Config.Bind("2. Messages", "Chat format", "{0}", "Format of chat message");
 
             EnableMaintenance = Config.Bind("3. ServerCharacters", "Maintenance mode", false, "Should enable maintenance mode for ServerCharacters");
             MaintenanceMinutes = Config.Bind("3. ServerCharacters", "Maintenance time", 7, "Enable maintenance before scheduled server restart time");
 
             DiscordUrl = Config.Bind("4. Discord", "Webhook", "");
             DiscordName = Config.Bind("4. Discord", "Display name", "Restart");
+            DiscordFormat = Config.Bind("4. Discord", "Discord format", "{0}", "Format of discord message");
 
             PrintLogs = Config.Bind("5. Logs", "Print logs", false);
             PrintLogsPeriod = Config.Bind("5. Logs", "Period", 600, "Period for displaying date of next restart and remaining time");

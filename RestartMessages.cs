@@ -7,6 +7,12 @@ namespace ServerRestart
 {
     public class RestartMessages : MonoBehaviour
     {
+        private static UserInfo User = new UserInfo
+        {
+            Gamertag = "",
+            NetworkUserId = "Steam_0",
+        };
+
         public static event Action<string> OnMessageSent;
 
         private void OnEnable()
@@ -44,6 +50,7 @@ namespace ServerRestart
 
             SendMessageToAll(message);
             SendMessageToDiscord(message);
+            SendMessageToChat(message);
 
             OnMessageSent?.Invoke(message);
         }
@@ -53,7 +60,7 @@ namespace ServerRestart
             ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "ShowMessage", new object[]
             {
                 (int)MessageHud.MessageType.Center,
-                message
+                string.Format(Plugin.AnounceFormat.Value, message),
             });
         }
 
@@ -63,10 +70,24 @@ namespace ServerRestart
             if (string.IsNullOrEmpty(Plugin.DiscordUrl.Value)) return;
 
             var displayName = Plugin.DiscordName.Value;
-            ThreadinUtil.RunThread(() =>
+            ThreadingUtil.RunThread(() =>
             {
-                DiscordTool.SendMessageToDiscord(webhookUrl, displayName, message);
+                DiscordTool.SendMessageToDiscord(webhookUrl, displayName, string.Format(Plugin.DiscordFormat.Value, message));
             });
+        }
+
+        private void SendMessageToChat(string message)
+        {
+            if (!Plugin.SendMessagesToChat.Value) return;
+
+            User.Name = Plugin.ChatName.Value;
+            ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody,
+                "ChatMessage",
+                new Vector3(0f, 200f, 0f),
+                (int)Talker.Type.Shout,
+                User,
+                string.Format(Plugin.ChatFormat.Value, message),
+                User.NetworkUserId);
         }
     } 
 }
