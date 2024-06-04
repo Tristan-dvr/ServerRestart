@@ -14,10 +14,7 @@ You also can disable shut down option and restart the server with hosting servic
 ### Thanks for contributing
 _madbomg_
 
-
-#### Find me on Discord if you got feature request / bug report / found incompatibility with another mod
-typedeff
-https://discord.gg/MjQZKuB4z2
+#### If you have any questions / bug reports / suggestions for improvement or found incompatibility with another mod, feel free to contact me in discord `typedeff`
 
 
 ### Changelog
