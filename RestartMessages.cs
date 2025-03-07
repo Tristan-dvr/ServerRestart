@@ -9,8 +9,7 @@ namespace ServerRestart
     {
         private static UserInfo User = new UserInfo
         {
-            Gamertag = "",
-            NetworkUserId = "Steam_0",
+            UserId = new Splatform.PlatformUserID("Steam", 0)
         };
 
         public static event Action<string> OnMessageSent;
@@ -86,8 +85,7 @@ namespace ServerRestart
                 new Vector3(0f, 200f, 0f),
                 (int)Talker.Type.Shout,
                 User,
-                string.Format(Plugin.ChatFormat.Value, message),
-                User.NetworkUserId);
+                string.Format(Plugin.ChatFormat.Value, message));
         }
     } 
 }

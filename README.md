@@ -18,6 +18,9 @@ _madbomg_
 
 
 ### Changelog
+1.1.3
+- Fixed compatiblity with new game version
+
 1.1.2
 - Added chat messages
 - Configurable messages format, separated configuration for each target (discord, center screen anounce, chat)

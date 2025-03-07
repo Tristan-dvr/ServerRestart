@@ -45,14 +45,16 @@
     <Reference Include="BepInEx.Harmony">
       <HintPath>..\HelheimMods\Libs\BepInEx.Harmony.dll</HintPath>
     </Reference>
+    <Reference Include="netstandard">
+      <HintPath>..\HelheimMods\Libs\netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="Splatform">
+      <HintPath>..\HelheimMods\Libs\Splatform.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
       <HintPath>..\HelheimMods\Libs\UnityEngine.dll</HintPath>
     </Reference>
