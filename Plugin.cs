@@ -14,7 +14,7 @@ namespace ServerRestart
     {
         public const string Guid = "org.tristan.serverrestart";
         public const string Name = "Server Restart";
-        public const string Version = "1.1.3";
+        public const string Version = "1.1.4";
 
         public static ConfigEntry<string> RestartTimes;
         public static ConfigEntry<string> Message1Hour;
@@ -116,6 +116,22 @@ namespace ServerRestart
             {
                 Thread.Sleep(5000);
                 Process.GetCurrentProcess().Kill();
+            }
+
+            [HarmonyPostfix]
+            [HarmonyPatch(typeof(ZNet), nameof(ZNet.UpdatePlayerList))]
+            private static void ZNet_UpdatePlayerList(ZNet __instance)
+            {
+                if (ZNet.TryGetPlayerByPlatformUserID(RestartMessages.ServerUserId, out _))
+                    return;
+
+                var playerInfo = new ZNet.PlayerInfo
+                {
+                    m_name = ChatName.Value,
+                    m_userInfo = new ZNet.CrossNetworkUserInfo { m_displayName = ChatName.Value, m_id = RestartMessages.ServerUserId },
+                    m_serverAssignedDisplayName = ChatName.Value,
+                };
+                __instance.m_players.Add(playerInfo);
             }
         }
     }

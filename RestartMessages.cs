@@ -1,4 +1,5 @@
 ﻿using DiscordTools;
+using Splatform;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -7,9 +8,12 @@ namespace ServerRestart
 {
     public class RestartMessages : MonoBehaviour
     {
+        public static readonly PlatformUserID ServerUserId = new PlatformUserID("Bot", 0, false);
+
         private static UserInfo User = new UserInfo
         {
-            UserId = new Splatform.PlatformUserID("Steam", 0)
+            UserId = ServerUserId,
+            Name = string.Empty,
         };
 
         public static event Action<string> OnMessageSent;
@@ -79,7 +83,6 @@ namespace ServerRestart
         {
             if (!Plugin.SendMessagesToChat.Value) return;
 
-            User.Name = Plugin.ChatName.Value;
             ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody,
                 "ChatMessage",
                 new Vector3(0f, 200f, 0f),

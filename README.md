@@ -18,7 +18,7 @@ _madbomg_
 
 
 ### Changelog
-1.1.3
+1.1.3-1.1.4
 - Fixed compatiblity with new game version
 
 1.1.2

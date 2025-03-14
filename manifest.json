@@ -1,6 +1,6 @@
 {
   "name": "ServerRestart",
-  "version_number": "1.1.3",
+  "version_number": "1.1.4",
   "website_url": "https://github.com/Tristan-dvr/ServerRestart",
   "description": "Server-side plugin that will safely shut down your server on a set schedule. Compatible with ServerCharacters.",
   "dependencies": [
