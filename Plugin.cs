@@ -14,7 +14,7 @@ namespace ServerRestart
     {
         public const string Guid = "org.tristan.serverrestart";
         public const string Name = "Server Restart";
-        public const string Version = "1.1.5";
+        public const string Version = "1.2.0";
 
         public static ConfigEntry<string> RestartTimes;
         public static ConfigEntry<string> Message1Hour;
@@ -129,7 +129,6 @@ namespace ServerRestart
                 {
                     m_name = ChatName.Value,
                     m_userInfo = new ZNet.CrossNetworkUserInfo { m_displayName = ChatName.Value, m_id = RestartMessages.ServerUserId },
-                    m_serverAssignedDisplayName = ChatName.Value,
                 };
                 __instance.m_players.Add(playerInfo);
             }

@@ -34,32 +34,32 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\HelheimMods\Libs\0Harmony.dll</HintPath>
+      <HintPath>Libs\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="assembly_valheim">
-      <HintPath>..\HelheimMods\Libs\assembly_valheim.dll</HintPath>
+      <HintPath>Libs\assembly_valheim.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
-      <HintPath>..\HelheimMods\Libs\BepInEx.dll</HintPath>
+      <HintPath>Libs\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx.Harmony">
-      <HintPath>..\HelheimMods\Libs\BepInEx.Harmony.dll</HintPath>
+      <HintPath>Libs\BepInEx.Harmony.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
-      <HintPath>..\HelheimMods\Libs\netstandard.dll</HintPath>
+      <HintPath>Libs\netstandard.dll</HintPath>
     </Reference>
     <Reference Include="Splatform">
-      <HintPath>..\HelheimMods\Libs\Splatform.dll</HintPath>
+      <HintPath>Libs\Splatform.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="UnityEngine">
-      <HintPath>..\HelheimMods\Libs\UnityEngine.dll</HintPath>
+      <HintPath>Libs\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\HelheimMods\Libs\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>Libs\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

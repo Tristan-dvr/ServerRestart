@@ -18,6 +18,9 @@ _madbomg_
 
 
 ### Changelog
+1.2.0
+- Fixed compatibility with new game version
+
 1.1.5
 - Fixed updating server time while no players online
 
