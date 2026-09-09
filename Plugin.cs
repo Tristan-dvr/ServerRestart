@@ -14,7 +14,7 @@ namespace ServerRestart
     {
         public const string Guid = "org.tristan.serverrestart";
         public const string Name = "Server Restart";
-        public const string Version = "1.2.0";
+        public const string Version = "1.2.1";
 
         public static ConfigEntry<string> RestartTimes;
         public static ConfigEntry<string> Message1Hour;
@@ -125,10 +125,17 @@ namespace ServerRestart
                 if (ZNet.TryGetPlayerByPlatformUserID(RestartMessages.ServerUserId, out _) || __instance.m_players.Count == 0)
                     return;
 
+                var name = ChatName.Value;
                 var playerInfo = new ZNet.PlayerInfo
                 {
-                    m_name = ChatName.Value,
-                    m_userInfo = new ZNet.CrossNetworkUserInfo { m_displayName = ChatName.Value, m_id = RestartMessages.ServerUserId },
+                    m_name = name,
+                    m_userInfo = new ZNet.CrossNetworkUserInfo
+                    {
+                        m_displayName = name,
+                        m_id = RestartMessages.ServerUserId,
+                        m_serverAssignedDisplayName = name,
+                        m_playfabId = string.Empty,
+                    },
                 };
                 __instance.m_players.Add(playerInfo);
             }

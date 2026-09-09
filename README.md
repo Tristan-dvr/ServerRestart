@@ -18,6 +18,9 @@ _madbomg_
 
 
 ### Changelog
+1.2.1
+- Fixed an error when players connect to the server
+
 1.2.0
 - Fixed compatibility with new game version
 
