@@ -1,9 +1,11 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
+using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
+using static Terminal;
 
 namespace ServerRestart
 {
@@ -14,7 +16,7 @@ namespace ServerRestart
     {
         public const string Guid = "org.tristan.serverrestart";
         public const string Name = "Server Restart";
-        public const string Version = "1.2.1";
+        public const string Version = "1.3.0";
 
         public static ConfigEntry<string> RestartTimes;
         public static ConfigEntry<string> Message1Hour;
@@ -138,6 +140,26 @@ namespace ServerRestart
                     },
                 };
                 __instance.m_players.Add(playerInfo);
+            }
+
+            [HarmonyPostfix]
+            [HarmonyPatch(typeof(Terminal), nameof(Terminal.AddConsoleCheatCommands))]
+            private static void Terminal_AddConsoleCheatCommands()
+            {
+                new ConsoleCommand("schedulerestart", "Schedule a server restart. Usage: schedulerestart <seconds>", args =>
+                {
+                    var seconds = args.TryParameterInt(1, -1);
+                    if (seconds < 0)
+                    {
+                        Log.Message("Restart scheduled for next configured time. To schedule a restart for a specific time, use the 'schedulerestart <seconds>'");
+                        _service.ScheduleNextRestart();
+                    }
+                    else
+                    {
+                        Log.Message($"Restart scheduled for {seconds} seconds from now");
+                        _service.ScheduleNextRestartAt(DateTime.UtcNow.AddSeconds(seconds));
+                    }
+                }, onlyServer: true);
             }
         }
     }

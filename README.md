@@ -11,32 +11,15 @@ Keep in mind that the maintenance time will need to be configured for both mods.
 
 You also can disable shut down option and restart the server with hosting services or your own.
 
+## Console commands
+These commands work only on the server. You can run them with mods that give remote access to the server console, for example [ValheimRcon](https://thunderstore.io/c/valheim/p/Tristan/ValheimRcon/) (`consoleCommand schedulerestart 600`) or [DiscordBot](https://thunderstore.io/c/valheim/p/RustyMods/DiscordBot/) (run commands from Discord).
+- `schedulerestart <seconds>` — schedules a server restart the given number of seconds from now.
+- `schedulerestart` — resets the restart to the next time from the configured schedule.
+
+Commands are ignored while a restart is already in progress.
+
 ### Thanks for contributing
 _madbomg_
 
-#### If you have any questions / bug reports / suggestions for improvement or found incompatibility with another mod, feel free to contact me in discord `typedeff`
-
-
-### Changelog
-1.2.1
-- Fixed an error when players connect to the server
-
-1.2.0
-- Fixed compatibility with new game version
-
-1.1.5
-- Fixed updating server time while no players online
-
-1.1.3-1.1.4
-- Fixed compatiblity with new game version
-
-1.1.2
-- Added chat messages
-- Configurable messages format, separated configuration for each target (discord, center screen anounce, chat)
-
-1.1.1
-- Fixed compatiblity with new game version
-- Fixed redundant logs
-
-1.1.0
-- Initial release
+# Contacts
+If you have any questions / bug reports / suggestions for improvement or found incompatibility with another mod, feel free to contact me in discord `typedeff` or on GitHub

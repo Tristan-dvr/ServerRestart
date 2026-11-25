@@ -58,6 +58,7 @@ jobs:
         Copy-Item "manifest.json" "package\"
         Copy-Item "icon.png" "package\"
         Copy-Item "README.md" "package\"
+        Copy-Item "CHANGELOG.md" "package\"
 
         Compress-Archive -Path "package\*" -DestinationPath $zipName -Force
         echo "Created package: $zipName"

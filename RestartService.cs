@@ -21,19 +21,33 @@ namespace ServerRestart
 
         public void ScheduleNextRestart()
         {
-            StopAllCoroutines();
-            RestartStarted = false;
-
             var schedule = Plugin.RestartTimes.Value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             if (schedule.Length == 0)
             {
-                NextRestartDate = default;
-                OnScheduledRestartChanged?.Invoke(NextRestartDate);
+                ScheduleNextRestartAt(default);
+            }
+            else
+            {
+                var nextRestartDate = GetNextRestartDate(schedule);
+                ScheduleNextRestartAt(nextRestartDate);
+            }
+        }
+
+        public void ScheduleNextRestartAt(DateTime dateTime)
+        {
+            if (RestartStarted)
+            {
+                Log.Error("Restart already in progress. Cannot schedule another restart");
                 return;
             }
-            NextRestartDate = GetNextRestartDate(schedule);
-            
-            if (Plugin.ShutDownServer.Value) StartCoroutine(ScheduleRestart(NextRestartDate));
+
+            StopAllCoroutines();
+            RestartStarted = false;
+
+            NextRestartDate = dateTime;
+
+            if (Plugin.ShutDownServer.Value && dateTime != default)
+                StartCoroutine(ScheduleRestart(NextRestartDate));
 
             OnScheduledRestartChanged?.Invoke(NextRestartDate);
         }
